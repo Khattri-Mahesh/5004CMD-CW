@@ -82,9 +82,9 @@ Process finished with exit code 0
 
 In[]
 # finding average of people at home and travelled distance of 10-25 miles
-avg_homePW = df.groupby(by="Week")["Population Staying at Home"].mean().compute()
+avg_homePW = df.groupby(by="Week")["Staying at Home"].mean().compute()
 print(avg_homePW)
-avg_travelDis = df.groupby(by="Week")["Number of Trips 10-25"].mean().compute()
+avg_travelDis = df.groupby(by="Week")["Number of Trips 10-25 miles"].mean().compute()
 print(avg_travelDis)
 
 Out[]
