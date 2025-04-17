@@ -218,6 +218,169 @@ Week
 Name: Number of Trips 10-25, dtype: float64
 
 Process finished with exit code 0
+In[]
+# parallel computing with dask vs pandas
+n_processors = [10, 20]
+n_processors_time = {}
+for processor in n_processors:
+    start_time = time.time()
+    # code for parallel processing
+    avg_homePerW = df.groupby(by="Week")["Population Staying at Home"].mean().compute()
+    avg_travel_dis = df.groupby(by="Week")["Number of Trips 10-25"].mean().compute()
+    dask_time = time.time() - start_time
+    n_processors_time[processor] = dask_time
+    print(f"Processing time with {processor} processors: {dask_time:.2f} seconds")
+
+X = avg_homePW.index.values.reshape(-1, 1)  # week as independent variable (reshape to 2D array for sklearn)
+y = avg_homePW.values  # people staying at home as dependent variable
+
+Out[]
+Name: Number of Trips 10-25, dtype: float64
+Processing time with 10 processors: 0.65 seconds
+Processing time with 20 processors: 0.65 seconds
+
+In[]
+# staying home v week histogram
+plt.figure(figsize=(16, 9))  # figures for the histogram
+plt.hist(df["Week"].compute(), bins=43, color="darkblue", edgecolor="white", alpha=0.7)
+plt.xlabel("Week", fontsize=12)
+plt.ylabel("People Staying at Home", fontsize=12)
+plt.title("People Staying at Home vs Week", fontsize=14)
+plt.grid(True, axis='y', linestyle='--', alpha=0.7)  # horizontal guidelines for x axis
+plt.show()  # displays the histogram
+
+# histogram for people traveling vs distance 10-25 miles
+plt.figure(figsize=(16, 9))
+plt.hist(df["Number of Trips 10-25"].compute(), bins=43, color="darkgreen", edgecolor="white", alpha=0.7)
+plt.xlabel("Distance Traveled (10-25 miles)", fontsize=12)
+plt.ylabel("People Not Staying at Home", fontsize=12)
+plt.title("People Traveling vs Distance", fontsize=14)
+plt.grid(True, axis='y', linestyle='--', alpha=0.7)
+plt.show()
+
+# time series plot for staying at home vs week
+plt.figure(figsize=(16, 9))  # Create a new figure for the line plot
+plt.plot(avg_homePW.index, avg_homePW.values, marker='o', color='darkblue', label='People Staying at Home')
+plt.xlabel("Week", fontsize=12)
+plt.ylabel("Average People Staying at Home", fontsize=12)
+plt.title("Time Series: People Staying at Home vs Week", fontsize=14)
+plt.grid(True, axis='both', linestyle='--', alpha=0.7)  # adding gridlines
+plt.legend()
+plt.show()  # displays the graph
+
+# time series plot for number of trips 10-25 vs week
+plt.figure(figsize=(16, 9))
+plt.plot(avg_travelDis.index, avg_travelDis.values, marker='o', color='darkgreen', label='People Traveling 10-25 Miles')
+plt.xlabel("Week", fontsize=12)
+plt.ylabel("Average Number of Trips (10-25 miles)", fontsize=12)
+plt.title("Time Series: People Traveling vs Distance (10-25 Miles)", fontsize=14)
+plt.grid(True, axis='both', linestyle='--', alpha=0.7)
+plt.legend()
+plt.show()
+
+Out[]
+### images output will be in read me file ###
+
+In[]
+# categorisation
+# returns the rows where Number of Trips 10-25 is >10000000
+date10_25 = df[df["Number of Trips 10-25"] > 10000000]
+date10_25["Date"].compute()
+print(date10_25)
+# returns the rows where Number of Trips 50-100 is >10000000
+date50_100 = df[df["Number of Trips 50-100"] > 10000000]
+date50_100["Date"].compute()
+print(date50_100)
+
+Out[]
+44    32639.484848
+42    72501.840025
+43    70259.200391
+Name: Number of Trips 10-25, dtype: float64
+Dask DataFrame Structure:
+                 Level            Date State FIPS State Postal Code County FIPS County Name Population Staying at Home Population Not Staying at Home Number of Trips Number of Trips <1 Number of Trips 1-3 Number of Trips 3-5 Number of Trips 5-10 Number of Trips 10-25 Number of Trips 25-50 Number of Trips 50-100 Number of Trips 100-250 Number of Trips 250-500 Number of Trips >=500  Row ID   Week  Month
+npartitions=10                                                                                                                                                                                                                                                                                                                                                                                                      
+21061           string  datetime64[ns]    float64            string     float64      string                    float64                        float64         float64            float64             float64             float64              float64               float64               float64                float64                 float64                 float64               float64  string  int64  int64
+145998             ...             ...        ...               ...         ...         ...                        ...                            ...             ...                ...                 ...                 ...                  ...                   ...                   ...                    ...                     ...                     ...                   ...     ...    ...    ...
+...                ...             ...        ...               ...         ...         ...                        ...                            ...             ...                ...                 ...                 ...                  ...                   ...                   ...                    ...                     ...                     ...                   ...     ...    ...    ...
+945651             ...             ...        ...               ...         ...         ...                        ...                            ...             ...                ...                 ...                 ...                  ...                   ...                   ...                    ...                     ...                     ...                   ...     ...    ...    ...
+1048574            ...             ...        ...               ...         ...         ...                        ...                            ...             ...                ...                 ...                 ...                  ...                   ...                   ...                    ...                     ...                     ...                   ...     ...    ...    ...
+Dask Name: getitem, 4 expressions
+Expr=Filter(frame=df, predicate=df['Number of Trips 10-25'] > 10000000)
+Dask DataFrame Structure:
+                 Level            Date State FIPS State Postal Code County FIPS County Name Population Staying at Home Population Not Staying at Home Number of Trips Number of Trips <1 Number of Trips 1-3 Number of Trips 3-5 Number of Trips 5-10 Number of Trips 10-25 Number of Trips 25-50 Number of Trips 50-100 Number of Trips 100-250 Number of Trips 250-500 Number of Trips >=500  Row ID   Week  Month
+npartitions=10                                                                                                                                                                                                                                                                                                                                                                                                      
+21061           string  datetime64[ns]    float64            string     float64      string                    float64                        float64         float64            float64             float64             float64              float64               float64               float64                float64                 float64                 float64               float64  string  int64  int64
+145998             ...             ...        ...               ...         ...         ...                        ...                            ...             ...                ...                 ...                 ...                  ...                   ...                   ...                    ...                     ...                     ...                   ...     ...    ...    ...
+...                ...             ...        ...               ...         ...         ...                        ...                            ...             ...                ...                 ...                 ...                  ...                   ...                   ...                    ...                     ...                     ...                   ...     ...    ...    ...
+945651             ...             ...        ...               ...         ...         ...                        ...                            ...             ...                ...                 ...                 ...                  ...                   ...                   ...                    ...                     ...                     ...                   ...     ...    ...    ...
+1048574            ...             ...        ...               ...         ...         ...                        ...                            ...             ...                ...                 ...                 ...                  ...                   ...                   ...                    ...                     ...                     ...                   ...     ...    ...    ...
+Dask Name: getitem, 4 expressions
+Expr=Filter(frame=df, predicate=df['Number of Trips 50-100'] > 10000000)
+Processing time with 10 processors: 0.64 seconds
+Processing time with 20 processors: 0.64 seconds
+Mean Squared Error on Test Data: 3035256.404603975
+R-squared on Test Data: -3.9121796107534212
+
+Process finished with exit code 0
 
 
 
+In[]
+# graph of the time taken for 10 and 20
+plt.figure(figsize=(16,9))
+plt.bar(n_processors_time.keys(), n_processors_time.values(), color="yellow")
+plt.xlabel("Number of Processors")
+plt.ylabel("Time (seconds)")
+plt.title("Computational Efficiency of Parallel Processing")
+plt.show() 
+
+Out[]
+### image of graph in read me ###
+
+In[]
+# polynomial features degree 2 for quadratic
+poly = PolynomialFeatures(degree=2)
+X_poly = poly.fit_transform(X)  # transforms X into polynomial features
+# fits the polynomial regression model
+model = LinearRegression()
+model.fit(X_poly, y)
+# predicting value
+ypredpoly = model.predict(X_poly)
+# plot results
+plt.figure(figsize=(16, 9))
+plt.scatter(X, y, color="blue", label="Actual Data")  # scatter plot of actual data points
+plt.plot(X, ypredpoly, color="green", label="Polynomial Regression", linewidth=2)  # polynomial fit line
+plt.xlabel("Week")
+plt.ylabel("People Staying at Home")
+plt.title("Polynomial Regression: People Staying at Home vs Week")
+plt.legend()
+plt.grid(True)
+plt.show()
+
+Out[]
+### image of the polynomial graph will be on read me file ###
+
+In[]
+# splitting the data into training and testing sets
+X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=42)
+# the model on training data
+model.fit(X_train, y_train)
+# come up predictions on test data
+y_pred_test = model.predict(X_test)
+# evaluation on the model on test data
+mse_test = mean_squared_error(y_test, y_pred_test)
+r2_test = r2_score(y_test, y_pred_test)
+print(f"Mean Squared Error on Test Data: {mse_test}")
+print(f"R-squared on Test Data: {r2_test}")
+
+
+Out[]
+44    32639.484848
+42    72501.840025
+43    70259.200391
+Name: Number of Trips 10-25, dtype: float64
+Processing time with 10 processors: 0.65 seconds
+Processing time with 20 processors: 0.64 seconds
+Mean Squared Error on Test Data: 3035256.404603975
+R-squared on Test Data: -3.9121796107534212
