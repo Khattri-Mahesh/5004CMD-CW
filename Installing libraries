@@ -1,0 +1,33 @@
+(Codes) PS C:\Coding and more> pip install pandas dask pyarrow scikit-learn
+Collecting pandas
+  Using cached pandas-2.2.3-cp311-cp311-win_amd64.whl (11.6 MB)
+Collecting dask
+  Using cached dask-2025.3.0-py3-none-any.whl (1.4 MB)
+Collecting pyarrow
+  Using cached pyarrow-19.0.1-cp311-cp311-win_amd64.whl (25.3 MB)
+Collecting scikit-learn
+  Using cached scikit_learn-1.6.1-cp311-cp311-win_amd64.whl (11.1 MB)
+Requirement already satisfied: numpy>=1.23.2 in c:\users\mahesh\appdata\roaming\python\python311\site-packages (from pandas) (1.24.1)
+Requirement already satisfied: python-dateutil>=2.8.2 in c:\users\mahesh\anaconda3\envs\codes\lib\site-packages (from pandas) (2.8.2)
+Requirement already satisfied: pytz>=2020.1 in c:\users\mahesh\anaconda3\envs\codes\lib\site-packages (from pandas) (2022.7.1)
+Requirement already satisfied: tzdata>=2022.7 in c:\users\mahesh\anaconda3\envs\codes\lib\site-packages (from pandas) (2025.2)
+Requirement already satisfied: click>=8.1 in c:\users\mahesh\anaconda3\envs\codes\lib\site-packages (from dask) (8.1.8)
+Requirement already satisfied: cloudpickle>=3.0.0 in c:\users\mahesh\anaconda3\envs\codes\lib\site-packages (from dask) (3.1.1)
+Requirement already satisfied: fsspec>=2021.09.0 in c:\users\mahesh\anaconda3\envs\codes\lib\site-packages (from dask) (2025.3.2)
+Requirement already satisfied: packaging>=20.0 in c:\users\mahesh\anaconda3\envs\codes\lib\site-packages (from dask) (23.0)
+Requirement already satisfied: partd>=1.4.0 in c:\users\mahesh\anaconda3\envs\codes\lib\site-packages (from dask) (1.4.2)
+Requirement already satisfied: pyyaml>=5.3.1 in c:\users\mahesh\anaconda3\envs\codes\lib\site-packages (from dask) (6.0.2)
+Requirement already satisfied: toolz>=0.10.0 in c:\users\mahesh\anaconda3\envs\codes\lib\site-packages (from dask) (1.0.0)
+Requirement already satisfied: importlib_metadata>=4.13.0 in c:\users\mahesh\anaconda3\envs\codes\lib\site-packages (from dask) (8.6.1)
+Requirement already satisfied: scipy>=1.6.0 in c:\users\mahesh\anaconda3\envs\codes\lib\site-packages (from scikit-learn) (1.15.2)
+Requirement already satisfied: joblib>=1.2.0 in c:\users\mahesh\anaconda3\envs\codes\lib\site-packages (from scikit-learn) (1.4.2)
+Requirement already satisfied: threadpoolctl>=3.1.0 in c:\users\mahesh\anaconda3\envs\codes\lib\site-packages (from scikit-learn) (3.6.0)
+Requirement already satisfied: colorama in c:\users\mahesh\anaconda3\envs\codes\lib\site-packages (from click>=8.1->dask) (0.4.6)
+Requirement already satisfied: zipp>=3.20 in c:\users\mahesh\anaconda3\envs\codes\lib\site-packages (from importlib_metadata>=4.13.0->dask) (3.21.0)
+Requirement already satisfied: locket in c:\users\mahesh\anaconda3\envs\codes\lib\site-packages (from partd>=1.4.0->dask) (1.0.0)
+Requirement already satisfied: six>=1.5 in c:\users\mahesh\anaconda3\envs\codes\lib\site-packages (from python-dateutil>=2.8.2->pandas) (1.16.0)
+Installing collected packages: pyarrow, scikit-learn, pandas, dask
+Successfully installed dask-2025.3.0 pandas-2.2.3 pyarrow-19.0.1 scikit-learn-1.6.1
+
+[notice] A new release of pip is available: 23.0 -> 25.0.1
+[notice] To update, run: python.exe -m pip install --upgrade pip
