@@ -1,0 +1,34 @@
+in[]:
+import dask.dataframe as dd
+import pandas as pd
+
+# uses DASK to check large datasets
+TBD = pd.read_csv('TripsByDistance.csv')
+TFD = pd.read_csv('TripsFullData.csv')
+# inspects the data
+print(TBD.head())
+print(TFD.head())
+
+Out[]:
+C:\Users\Mahesh\anaconda3\envs\Codes\python.exe "C:\Coding and more\5004CMD CW\Data Acquisition.py" 
+      Level        Date  State FIPS  ...             Row ID  Week Month
+0  National  01/01/2019         NaN  ...  00-00000-20190101     0     1
+1  National  01/02/2019         NaN  ...  00-00000-20190102     0     1
+2  National  01/03/2019         NaN  ...  00-00000-20190103     0     1
+3  National  01/04/2019         NaN  ...  00-00000-20190104     0     1
+4  National  01/05/2019         NaN  ...  00-00000-20190105     0     1
+
+[5 rows x 22 columns]
+  Month of Date Week of Date  ...  Trips 50-100 Miles Trips 500+ Miles
+0        August      Week 32  ...            19911937          4469346
+1        August      Week 32  ...            17819554          4085888
+2        August      Week 32  ...            17450413          3369125
+3        August      Week 32  ...            17819019          1876445
+4        August      Week 32  ...            17469044          4674725
+
+[5 rows x 22 columns]
+
+Process finished with exit code 0
+
+in[]
+
